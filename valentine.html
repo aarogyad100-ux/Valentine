@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Question for You</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffe6ea;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            overflow: hidden;
+        }
+        #container {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        h1 { color: #d63384; margin-bottom: 20px; }
+        .gif { width: 200px; margin-bottom: 20px; border-radius: 10px; }
+        .buttons { display: flex; gap: 20px; justify-content: center; align-items: center; }
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        #yesBtn { background-color: #4CAF50; color: white; }
+        #noBtn { background-color: #f44336; color: white; }
+        .celebration { display: none; }
+        .celebration h1 { font-size: 3rem; color: #ff007f; }
+    </style>
+</head>
+<body>
+
+    <div id="askScreen">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHJreG13NTVidmZ3M2R6ZzRyc3R4bmVxeXp6Ym15bmVxeXp6Ym15JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNUMo/giphy.gif" alt="Cute Cat" class="gif">
+        <h1 id="questionText">Will you be my Valentine? ❤️</h1>
+        <div class="buttons">
+            <button id="yesBtn" onclick="celebrate()">Yes</button>
+            <button id="noBtn" onmouseover="moveNo()" onclick="moveNo()">No</button>
+        </div>
+    </div>
+
+    <div id="celebration" class="celebration">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWdtbmR6M3R0N3R3bmVxeXp6Ym15bmVxeXp6Ym15JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l41lTfuxV6M0v5M64/giphy.gif" alt="Happy Dance" class="gif">
+        <h1>Yay! I knew it! 🥰</h1>
+        <p>See you on February 14th!</p>
+    </div>
+
+    <script>
+        let noCount = 0;
+        const noTexts = [
+            "Are you sure?",
+            "Really sure?",
+            "Think again!",
+            "Last chance!",
+            "Surely not?",
+            "You might regret this!",
+            "Give it another thought!",
+            "Are you absolutely sure?",
+            "This could be a mistake!",
+            "Have a heart!",
+            "Don't be so cold!",
+            "Change of heart?",
+            "Wouldn't you reconsider?",
+            "Is that your final answer?",
+            "You're breaking my heart ;("
+        ];
+
+        function moveNo() {
+            const noBtn = document.getElementById('noBtn');
+            const yesBtn = document.getElementById('yesBtn');
+            
+            // Make the No button move to a random position
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+
+            // Change text
+            noBtn.innerText = noTexts[Math.min(noCount, noTexts.length - 1)];
+            noCount++;
+
+            // Make the Yes button bigger
+            let currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+            yesBtn.style.fontSize = (currentSize + 10) + 'px';
+            yesBtn.style.padding = (currentSize + 5) + 'px ' + (currentSize * 2) + 'px';
+        }
+
+        function celebrate() {
+            document.getElementById('askScreen').style.display = 'none';
+            document.getElementById('celebration').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
